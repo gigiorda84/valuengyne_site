@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ValuEngyne — Start Up With Value</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/dompurify/3.1.6/purify.min.js"></script>
+  <style>
+    :root {
+      --teal:         #26C5B8;
+      --teal-light:   #4DD9CE;
+      --teal-dark:    #1BA094;
+      --teal-dim:     rgba(38,197,184,0.08);
+      --teal-glow:    rgba(38,197,184,0.18);
+      --teal-border:  rgba(38,197,184,0.28);
+      --bg-base:      #080D16;
+      --bg-surface:   #0C1321;
+      --bg-elevated:  #111B2B;
+      --text-primary: #E4EAF2;
+      --text-secondary: #7F8EA0;
+      --text-muted:   #445060;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── Grid bg ── */
+    .bg-grid {
+      background-image:
+        linear-gradient(rgba(38,197,184,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(38,197,184,0.025) 1px, transparent 1px);
+      background-size: 64px 64px;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      backdrop-filter: blur(24px); -webkit-backdrop-filter: blur(24px);
+      background: rgba(8,13,22,0.82);
+      border-bottom: 1px solid rgba(38,197,184,0.08);
+      transition: background 0.35s ease;
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+      height: 70px; display: flex; align-items: center; justify-content: space-between;
+    }
+    .logo-wrap {
+      display: inline-flex; align-items: center;
+    }
+    .logo-wrap img { height: 40px; width: auto; display: block; }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Barlow', sans-serif; font-weight: 500;
+      font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-secondary); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--teal); }
+
+    /* ── LANGUAGE TOGGLE ── */
+    .nav-right { display: flex; align-items: center; gap: 1.25rem; }
+    .lang-toggle {
+      display: flex; align-items: center; gap: 0;
+      border: 1px solid var(--teal-border); border-radius: 4px;
+      overflow: hidden;
+    }
+    .lang-btn {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      background: transparent; border: none; cursor: pointer;
+      color: var(--text-muted); padding: 0.38rem 0.7rem;
+      transition: background 0.18s, color 0.18s;
+    }
+    .lang-btn:hover { color: var(--teal); }
+    .lang-btn.active { background: var(--teal-dim); color: var(--teal); }
+    .lang-sep { width: 1px; height: 16px; background: var(--teal-border); }
+
+    .btn-cta-sm {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.78rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--bg-base); background: var(--teal);
+      padding: 0.6rem 1.5rem; border-radius: 4px; text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-cta-sm:hover {
+      background: var(--teal-light); transform: translateY(-1px);
+      box-shadow: 0 6px 24px rgba(38,197,184,0.38);
+    }
+    .btn-cta-sm:active { transform: translateY(0); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative; min-height: 100vh;
+      display: flex; align-items: center;
+      overflow: hidden; padding-top: 70px;
+    }
+    .hero-bg { position: absolute; inset: 0; z-index: 0; }
+    .hero-radial {
+      position: absolute; right: -5%; top: 50%;
+      transform: translateY(-50%);
+      width: 750px; height: 750px;
+      background: radial-gradient(circle at center, rgba(38,197,184,0.1) 0%, transparent 65%);
+      animation: pulse-glow 7s ease-in-out infinite;
+    }
+    .arc-wrapper {
+      position: absolute; right: -8%; top: 50%;
+      transform: translateY(-50%);
+      width: 720px; height: 720px;
+    }
+    @keyframes spin-cw  { to { transform: rotate(360deg);  } }
+    @keyframes spin-ccw { to { transform: rotate(-360deg); } }
+    @keyframes pulse-glow { 0%,100%{opacity:.7} 50%{opacity:1} }
+    .ring-1 { animation: spin-cw  38s linear infinite; transform-origin: 360px 360px; }
+    .ring-2 { animation: spin-ccw 26s linear infinite; transform-origin: 360px 360px; }
+    .ring-3 { animation: spin-cw  17s linear infinite; transform-origin: 360px 360px; }
+
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 1280px; margin: 0 auto; padding: 0 2rem; width: 100%;
+    }
+    .hero-eyebrow {
+      font-family: 'Barlow', sans-serif; font-weight: 500;
+      font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); display: flex; align-items: center; gap: 0.8rem;
+      margin-bottom: 1.75rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; display: block; width: 36px; height: 1px; background: var(--teal);
+    }
+    h1.line-a {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 9.5vw, 8.5rem); line-height: 0.92;
+      letter-spacing: 0.01em; color: var(--text-primary);
+    }
+    h1.line-b {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 9.5vw, 8.5rem); line-height: 0.92;
+      letter-spacing: 0.01em; color: var(--teal);
+      margin-bottom: 0.5rem;
+    }
+    h1.line-c {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.2rem, 4.5vw, 4rem); line-height: 1;
+      letter-spacing: 0.01em; color: var(--text-primary);
+      margin-bottom: 2.25rem;
+    }
+    .hero-sub {
+      font-weight: 300; font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      line-height: 1.75; color: var(--text-secondary);
+      max-width: 500px; margin-bottom: 3rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
+    .btn-primary {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.88rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--bg-base); background: var(--teal);
+      padding: 0.9rem 2.2rem; border-radius: 4px; text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+    }
+    .btn-primary:hover {
+      background: var(--teal-light); transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(38,197,184,0.42);
+    }
+    .btn-primary:active { transform: translateY(0); }
+    .btn-ghost {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.88rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--teal); border: 1px solid var(--teal-border);
+      padding: 0.9rem 2.2rem; border-radius: 4px; text-decoration: none;
+      display: inline-block;
+      transition: background 0.2s, transform 0.15s, border-color 0.2s;
+    }
+    .btn-ghost:hover {
+      background: var(--teal-dim); border-color: var(--teal);
+      transform: translateY(-2px);
+    }
+    .btn-ghost:active { transform: translateY(0); }
+    .hero-stats {
+      display: flex; gap: 2.5rem; flex-wrap: wrap;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+    .stat-n {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2.6rem;
+      line-height: 1; color: var(--teal);
+    }
+    .stat-l {
+      font-size: 0.72rem; color: var(--text-muted);
+      letter-spacing: 0.05em; margin-top: 0.2rem;
+    }
+
+    /* ── PROBLEM ── */
+    .problem-wrap {
+      background: var(--bg-surface);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      padding: 8rem 2rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .problem-wrap::before {
+      content: '';
+      position: absolute; inset: 0;
+      background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(38,197,184,0.04) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .problem-quote {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: clamp(1.7rem, 3.8vw, 3rem); line-height: 1.25;
+      color: var(--text-primary); max-width: 860px; margin: 0 auto;
+      position: relative;
+    }
+    .problem-quote em { font-style: normal; color: var(--teal); }
+    .problem-sub {
+      font-size: 0.85rem; color: var(--text-muted);
+      margin-top: 2rem; letter-spacing: 0.07em; text-transform: uppercase;
+      position: relative;
+    }
+
+    /* ── SECTION BASE ── */
+    .section-wrap {
+      max-width: 1280px; margin: 0 auto; padding: 7rem 2rem;
+    }
+    .section-label {
+      font-family: 'Barlow', sans-serif; font-weight: 500;
+      font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase;
+      color: var(--teal); display: flex; align-items: center; gap: 0.75rem;
+      margin-bottom: 1rem;
+    }
+    .section-label::before {
+      content: ''; width: 28px; height: 1px; background: var(--teal);
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 4rem); line-height: 1;
+      letter-spacing: 0.02em; color: var(--text-primary); margin-bottom: 1rem;
+    }
+    .section-body {
+      font-weight: 300; font-size: 1rem; line-height: 1.78;
+      color: var(--text-secondary); max-width: 580px;
+    }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1.5px; background: rgba(38,197,184,0.14);
+      border-radius: 10px; overflow: hidden; margin-top: 4rem;
+    }
+    .svc-card {
+      background: var(--bg-surface); padding: 3rem;
+      position: relative; overflow: hidden;
+      transition: background 0.3s;
+    }
+    .svc-card::after {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .svc-card:hover::after { transform: scaleX(1); }
+    .svc-card:hover { background: var(--bg-elevated); }
+    .svc-badge {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.62rem; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--teal); background: var(--teal-dim);
+      border: 1px solid var(--teal-border);
+      padding: 0.28rem 0.8rem; border-radius: 2px;
+      display: inline-block; margin-bottom: 1.5rem;
+    }
+    .svc-name {
+      font-family: 'Bebas Neue', sans-serif; font-size: 3.8rem;
+      line-height: 1; letter-spacing: 0.02em; color: var(--text-primary);
+      margin-bottom: 0.4rem;
+    }
+    .svc-sub {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 500;
+      font-size: 0.95rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--text-secondary); margin-bottom: 1.75rem;
+    }
+    .svc-desc {
+      font-weight: 300; font-size: 0.92rem; line-height: 1.78;
+      color: var(--text-secondary); margin-bottom: 2rem;
+    }
+    .svc-meta {
+      display: flex; gap: 2rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+      margin-bottom: 1.5rem;
+    }
+    .meta-val {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2rem;
+      color: var(--teal); line-height: 1;
+    }
+    .meta-label { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .output-label {
+      font-family: 'Barlow', sans-serif; font-weight: 600;
+      font-size: 0.65rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--text-muted); margin-bottom: 0.4rem;
+    }
+    .output-val { font-size: 0.9rem; color: var(--text-primary); }
+    .svc-list {
+      list-style: none; margin-top: 1.25rem;
+      display: flex; flex-direction: column; gap: 0.4rem;
+    }
+    .svc-list li {
+      font-size: 0.82rem; color: var(--text-secondary);
+      display: flex; gap: 0.6rem; align-items: flex-start;
+    }
+    .svc-list li span { color: var(--teal); flex-shrink: 0; }
+
+    /* ── PILLARS ── */
+    .pillars-bg {
+      background: var(--bg-surface);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .pillars-grid {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 2rem; margin-top: 4rem;
+    }
+    .pillar {
+      background: var(--bg-elevated);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; padding: 2.5rem;
+      position: relative; overflow: hidden;
+      transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+    }
+    .pillar:hover {
+      border-color: var(--teal-border); transform: translateY(-5px);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.35), 0 0 0 1px rgba(38,197,184,0.12);
+    }
+    .pillar-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 5rem; line-height: 1;
+      color: rgba(38,197,184,0.08); position: absolute; top: 1.25rem; right: 1.75rem;
+    }
+    .pillar-icon {
+      width: 46px; height: 46px;
+      background: var(--teal-dim); border: 1px solid var(--teal-border);
+      border-radius: 7px; display: flex; align-items: center; justify-content: center;
+      margin-bottom: 1.5rem;
+    }
+    .pillar-icon svg {
+      width: 22px; height: 22px;
+      stroke: var(--teal); fill: none; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+    .pillar-title {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 1.35rem; letter-spacing: 0.06em; text-transform: uppercase;
+      color: var(--text-primary); margin-bottom: 0.9rem;
+    }
+    .pillar-desc {
+      font-weight: 300; font-size: 0.88rem; line-height: 1.78;
+      color: var(--text-secondary); margin-bottom: 1.5rem;
+    }
+    .pillar-feats { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+    .pillar-feats li {
+      font-size: 0.8rem; color: var(--text-secondary);
+      display: flex; gap: 0.6rem; align-items: flex-start;
+    }
+    .pillar-feats li::before { content: '→'; color: var(--teal); flex-shrink: 0; }
+
+    /* ── STATS BAR ── */
+    .stats-bar {
+      background: var(--bg-base);
+      border-top: 1px solid rgba(255,255,255,0.04);
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .stats-inner {
+      max-width: 1280px; margin: 0 auto; padding: 5rem 2rem;
+      display: grid; grid-template-columns: repeat(4,1fr); gap: 1rem;
+    }
+    .stat-block { text-align: center; position: relative; padding: 2rem 1rem; }
+    .stat-block::after {
+      content: ''; position: absolute; right: 0; top: 20%; height: 60%;
+      width: 1px; background: rgba(255,255,255,0.05);
+    }
+    .stat-block:last-child::after { display: none; }
+    .stat-big {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 5vw, 5.5rem); line-height: 1;
+      color: var(--teal); margin-bottom: 0.5rem;
+    }
+    .stat-desc {
+      font-family: 'Barlow', sans-serif; font-weight: 400;
+      font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5;
+    }
+
+    /* ── TEAM ── */
+    .team-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem; margin-top: 4rem;
+    }
+    .team-card {
+      background: var(--bg-surface);
+      border: 1px solid rgba(255,255,255,0.05);
+      border-radius: 8px; overflow: hidden; position: relative;
+      transition: transform 0.3s, border-color 0.3s, box-shadow 0.3s;
+    }
+    .team-card::after {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, var(--teal), var(--teal-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform 0.35s ease;
+    }
+    .team-card:hover::after { transform: scaleX(1); }
+    .team-card:hover {
+      transform: translateY(-6px);
+      border-color: var(--teal-border);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(38,197,184,0.12);
+    }
+    .team-photo-wrap {
+      width: 160px; height: 160px;
+      border-radius: 50%;
+      overflow: hidden;
+      margin: 2rem auto 1rem;
+      border: 2px solid rgba(38,197,184,0.25);
+      box-shadow: 0 0 0 5px rgba(38,197,184,0.07);
+      transition: border-color 0.3s, box-shadow 0.3s;
+    }
+    .team-card:hover .team-photo-wrap {
+      border-color: rgba(38,197,184,0.55);
+      box-shadow: 0 0 0 7px rgba(38,197,184,0.1);
+    }
+    .team-photo-wrap img {
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      filter: grayscale(35%);
+      transition: filter 0.4s, transform 0.4s;
+    }
+    .team-card:hover .team-photo-wrap img {
+      filter: grayscale(0%);
+      transform: scale(1.06);
+    }
+    .team-info { padding: 0 1.5rem 1.75rem; text-align: center; }
+    .team-name {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.75rem;
+      line-height: 1; color: var(--text-primary);
+      margin-bottom: 0.75rem; letter-spacing: 0.02em;
+    }
+    .team-linkedin {
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--teal); text-decoration: none;
+      transition: opacity 0.2s, gap 0.2s;
+    }
+    .team-linkedin:hover { opacity: 0.7; gap: 0.65rem; }
+    .team-linkedin svg { width: 14px; height: 14px; fill: var(--teal); flex-shrink: 0; }
+
+    /* ── ACCELERATORS ── */
+    .accel-bg {
+      background: linear-gradient(135deg, var(--bg-surface) 0%, rgba(38,197,184,0.03) 100%);
+      border-top: 1px solid rgba(255,255,255,0.04);
+    }
+    .accel-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .benefits { list-style: none; margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem; }
+    .benefit { display: flex; gap: 1rem; align-items: flex-start; }
+    .check-circle {
+      width: 20px; height: 20px; flex-shrink: 0; margin-top: 0.1rem;
+      background: var(--teal-dim); border: 1px solid var(--teal-border);
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    }
+    .check-circle svg {
+      width: 10px; height: 10px; stroke: var(--teal); fill: none; stroke-width: 2.5;
+    }
+    .benefit-text { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.65; }
+    .benefit-text strong { color: var(--text-primary); font-weight: 500; }
+    .accel-items { display: flex; flex-direction: column; gap: 1rem; }
+    .accel-item {
+      background: var(--bg-elevated); border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 8px; padding: 1.4rem 1.5rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+      transition: border-color 0.2s;
+    }
+    .accel-item:hover { border-color: var(--teal-border); }
+    .accel-item.featured {
+      border-color: var(--teal-border);
+      background: linear-gradient(135deg, var(--teal-dim), transparent);
+    }
+    .accel-dot {
+      width: 8px; height: 8px; background: var(--teal);
+      border-radius: 50%; flex-shrink: 0; margin-top: 0.45rem;
+    }
+    .accel-title {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.95rem; letter-spacing: 0.07em; text-transform: uppercase;
+      color: var(--text-primary); margin-bottom: 0.3rem;
+    }
+    .accel-title.featured { color: var(--teal); }
+    .accel-desc { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; }
+
+    /* ── CTA ── */
+    .cta-wrap {
+      padding: 10rem 2rem; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .cta-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse 65% 55% at 50% 50%, rgba(38,197,184,0.07) 0%, transparent 70%);
+    }
+    .cta-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 7vw, 6.5rem); line-height: 0.95;
+      color: var(--text-primary); margin-bottom: 1.5rem; position: relative;
+    }
+    .cta-sub {
+      font-weight: 300; font-size: 1.05rem; line-height: 1.75;
+      color: var(--text-secondary); max-width: 480px;
+      margin: 0 auto 3rem; position: relative;
+    }
+    .cta-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; position: relative; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bg-surface);
+      border-top: 1px solid rgba(255,255,255,0.05);
+      padding: 3rem 2rem;
+    }
+    .footer-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; justify-content: space-between; align-items: center;
+      flex-wrap: wrap; gap: 2rem;
+    }
+    .footer-brand .logo-wrap img { height: 30px; }
+    .footer-tagline {
+      font-size: 0.7rem; color: var(--text-muted);
+      letter-spacing: 0.1em; text-transform: uppercase; margin-top: 0.6rem;
+    }
+    .footer-links { display: flex; gap: 2rem; list-style: none; }
+    .footer-links a {
+      font-size: 0.8rem; color: var(--text-muted);
+      text-decoration: none; letter-spacing: 0.04em;
+      transition: color 0.2s;
+    }
+    .footer-links a:hover { color: var(--teal); }
+    .footer-copy { font-size: 0.72rem; color: var(--text-muted); }
+
+    /* ── REVEAL ── */
+    .reveal {
+      opacity: 0; transform: translateY(22px);
+      transition: opacity 0.65s ease, transform 0.65s ease;
+    }
+    .reveal.in { opacity: 1; transform: translateY(0); }
+    .delay-1 { transition-delay: 0.1s; }
+    .delay-2 { transition-delay: 0.2s; }
+    .delay-3 { transition-delay: 0.32s; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .nav-links { display: none; }
+      .services-grid { grid-template-columns: 1fr; }
+      .pillars-grid { grid-template-columns: 1fr; }
+      .stats-inner { grid-template-columns: repeat(2,1fr); }
+      .accel-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .stat-block::after { display: none; }
+      .team-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 500px) {
+      .hero-stats { gap: 1.5rem; }
+      .stats-inner { grid-template-columns: 1fr 1fr; }
+      .team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════ NAV ══════════════════ -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="logo-wrap">
+      <img src="brand_assets/valuengyne_logo.png" alt="ValuEngyne" />
+    </a>
+    <ul class="nav-links">
+      <li><a href="#services"      data-i18n="nav.services">Services</a></li>
+      <li><a href="#approach"      data-i18n="nav.approach">Our Approach</a></li>
+      <li><a href="#team"          data-i18n="nav.team">Team</a></li>
+      <li><a href="#accelerators"  data-i18n="nav.funds">For Funds</a></li>
+      <li><a href="#contact"       data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <div class="nav-right">
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button class="lang-btn active" data-lang="en">EN</button>
+        <span class="lang-sep"></span>
+        <button class="lang-btn" data-lang="it">IT</button>
+      </div>
+      <a href="#contact" class="btn-cta-sm" data-i18n="nav.cta">Book a Call</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════════════ HERO ══════════════════ -->
+<section class="hero bg-grid">
+  <div class="hero-bg">
+    <div class="hero-radial"></div>
+    <div class="arc-wrapper">
+      <svg viewBox="0 0 720 720" xmlns="http://www.w3.org/2000/svg" width="100%" height="100%">
+        <g class="ring-1">
+          <path d="M360,60 A300,300 0 0,1 570,150" stroke="#26C5B8" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.35"/>
+          <path d="M605,300 A300,300 0 0,1 540,540" stroke="#26C5B8" stroke-width="2"   stroke-linecap="round" fill="none" opacity="0.2"/>
+          <path d="M420,640 A300,300 0 0,1 150,520" stroke="#26C5B8" stroke-width="4"   stroke-linecap="round" fill="none" opacity="0.3"/>
+          <path d="M100,380 A300,300 0 0,1 170,150" stroke="#26C5B8" stroke-width="2"   stroke-linecap="round" fill="none" opacity="0.18"/>
+          <path d="M240,80  A300,300 0 0,1 350,60"  stroke="#26C5B8" stroke-width="3"   stroke-linecap="round" fill="none" opacity="0.25"/>
+        </g>
+        <g class="ring-2">
+          <path d="M360,110 A250,250 0 0,1 535,185" stroke="#26C5B8" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.28"/>
+          <path d="M570,360 A250,250 0 0,1 505,550" stroke="#26C5B8" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.22"/>
+          <path d="M380,605 A250,250 0 0,1 160,485" stroke="#26C5B8" stroke-width="2"   stroke-linecap="round" fill="none" opacity="0.3"/>
+          <path d="M130,330 A250,250 0 0,1 190,155" stroke="#26C5B8" stroke-width="3"   stroke-linecap="round" fill="none" opacity="0.2"/>
+        </g>
+        <g class="ring-3">
+          <path d="M360,160 A200,200 0 0,1 500,225" stroke="#26C5B8" stroke-width="3"   stroke-linecap="round" fill="none" opacity="0.32"/>
+          <path d="M540,360 A200,200 0 0,1 490,495" stroke="#26C5B8" stroke-width="2"   stroke-linecap="round" fill="none" opacity="0.18"/>
+          <path d="M360,550 A200,200 0 0,1 200,465" stroke="#26C5B8" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.28"/>
+          <path d="M175,320 A200,200 0 0,1 240,185" stroke="#26C5B8" stroke-width="2.5" stroke-linecap="round" fill="none" opacity="0.22"/>
+        </g>
+      </svg>
+    </div>
+  </div>
+
+  <div class="hero-content">
+    <p class="hero-eyebrow" data-i18n="hero.eyebrow">Start Up With Value</p>
+    <h1 class="line-a" data-i18n="hero.h1a">Most Startups</h1>
+    <h1 class="line-b" data-i18n="hero.h1b">Don't Fail On Execution.</h1>
+    <h1 class="line-c" data-i18n="hero.h1c">They Fail On Value Creation.</h1>
+    <p class="hero-sub" data-i18n="hero.sub">
+      ValuEngyne helps startups identify, validate, and execute a unique,
+      reachable, and defensible market positioning — turning early promise
+      into sustainable revenue growth.
+    </p>
+    <div class="hero-btns">
+      <a href="#services" class="btn-primary" data-i18n="hero.btn.services">Explore Services</a>
+      <a href="#contact"  class="btn-ghost"   data-i18n="hero.btn.call">Book a Discovery Call</a>
+    </div>
+    <div class="hero-stats">
+      <div>
+        <div class="stat-n">10+</div>
+        <div class="stat-l" data-i18n="hero.stat1">Years in Innovation</div>
+      </div>
+      <div>
+        <div class="stat-n">30+</div>
+        <div class="stat-l" data-i18n="hero.stat2">Years Startup Experience</div>
+      </div>
+      <div>
+        <div class="stat-n">6+</div>
+        <div class="stat-l" data-i18n="hero.stat3">Startups Founded</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PROBLEM ══════════════════ -->
+<div class="problem-wrap">
+  <p class="section-label" style="justify-content:center; margin-bottom:2rem;" data-i18n="problem.label">The Root Cause</p>
+  <p class="problem-quote" data-i18n="problem.quote">
+    When positioning is <em>clear</em>, you can build a <em>focused</em>
+    and <em>sustainable</em> revenue growth plan.<br>
+    Most startups skip this step.
+  </p>
+  <p class="problem-sub" data-i18n="problem.sub">We make sure yours doesn't.</p>
+</div>
+
+<!-- ══════════════════ SERVICES ══════════════════ -->
+<section id="services">
+  <div class="section-wrap">
+    <p class="section-label" data-i18n="svc.label">What We Do</p>
+    <h2 class="section-title" data-i18n="svc.title">Our Services</h2>
+    <p class="section-body" data-i18n="svc.body">
+      Two focused services built for different stages of the startup journey —
+      one clear outcome: revenue growth driven by validated positioning.
+    </p>
+
+    <div class="services-grid reveal">
+      <!-- Engyne Build -->
+      <div class="svc-card">
+        <span class="svc-badge" data-i18n="svc.build.badge">Early Stage</span>
+        <div class="svc-name">Engyne<br>Build</div>
+        <div class="svc-sub" data-i18n="svc.build.sub">Find Your Positioning</div>
+        <p class="svc-desc" data-i18n="svc.build.desc">
+          For startups that need to find and validate their market positioning.
+          A structured 4-month engagement to identify where and how you create
+          value that is unique, reachable, and defensible.
+        </p>
+        <div class="svc-meta">
+          <div>
+            <div class="meta-val">4</div>
+            <div class="meta-label" data-i18n="svc.build.meta1">Month Duration</div>
+          </div>
+          <div>
+            <div class="meta-val">3</div>
+            <div class="meta-label" data-i18n="svc.build.meta2">Analysis Layers</div>
+          </div>
+        </div>
+        <div class="output-label" data-i18n="svc.output.label">Output</div>
+        <div class="output-val" data-i18n="svc.build.output">12-Month Go-To-Market Plan</div>
+        <ul class="svc-list">
+          <li><span>&#x2192;</span><span data-i18n="svc.build.li1">Market verticals &amp; value creation analysis</span></li>
+          <li><span>&#x2192;</span><span data-i18n="svc.build.li2">Competitive positioning map</span></li>
+          <li><span>&#x2192;</span><span data-i18n="svc.build.li3">Technology &amp; scalability assessment</span></li>
+        </ul>
+      </div>
+
+      <!-- Engyne Growth -->
+      <div class="svc-card">
+        <span class="svc-badge" data-i18n="svc.growth.badge">Late Stage</span>
+        <div class="svc-name">Engyne<br>Growth</div>
+        <div class="svc-sub" data-i18n="svc.growth.sub">Accelerate Your Revenue</div>
+        <p class="svc-desc" data-i18n="svc.growth.desc">
+          For startups that need to grow or re-ignite growth. We identify the
+          operational levers and revenue focus areas to build an accelerating,
+          sustainable trajectory.
+        </p>
+        <div class="svc-meta">
+          <div>
+            <div class="meta-val">1</div>
+            <div class="meta-label" data-i18n="svc.growth.meta1">Month Core</div>
+          </div>
+          <div>
+            <div class="meta-val">+2</div>
+            <div class="meta-label" data-i18n="svc.growth.meta2">Months Follow-On</div>
+          </div>
+        </div>
+        <div class="output-label" data-i18n="svc.output.label">Output</div>
+        <div class="output-val" data-i18n="svc.growth.output">Custom Growth Work Plan</div>
+        <ul class="svc-list">
+          <li><span>&#x2192;</span><span data-i18n="svc.growth.li1">Revenue focus area identification</span></li>
+          <li><span>&#x2192;</span><span data-i18n="svc.growth.li2">Go-to-market execution support</span></li>
+          <li><span>&#x2192;</span><span data-i18n="svc.growth.li3">Progress monitoring &amp; iteration</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ PILLARS ══════════════════ -->
+<section id="approach" class="pillars-bg">
+  <div class="section-wrap">
+    <p class="section-label" data-i18n="pillars.label">Our Approach</p>
+    <h2 class="section-title" data-i18n="pillars.title">Three Pillars of Uniqueness</h2>
+    <p class="section-body" data-i18n="pillars.body">
+      ValuEngyne's value is built on three integrated pillars that combine
+      proprietary technology, a battle-tested methodology, and deep
+      human engagement.
+    </p>
+
+    <div class="pillars-grid">
+      <div class="pillar reveal">
+        <div class="pillar-num">01</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="pillar-title" data-i18n="p1.title">Proprietary Platform</div>
+        <p class="pillar-desc" data-i18n="p1.desc">
+          A unique digital platform at the core of our model — integrating
+          multi-source data, advanced AI, and a full client journey from
+          assessment through execution.
+        </p>
+        <ul class="pillar-feats">
+          <li data-i18n="p1.li1">Startup databases &amp; sector benchmarks</li>
+          <li data-i18n="p1.li2">Multi-model AI (LLM, predictive, vertical AI)</li>
+          <li data-i18n="p1.li3">Structured customer onboarding &amp; CRM</li>
+          <li data-i18n="p1.li4">Workflow automation for scale</li>
+        </ul>
+      </div>
+
+      <div class="pillar reveal delay-1">
+        <div class="pillar-num">02</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        </div>
+        <div class="pillar-title" data-i18n="p2.title">The Playbook</div>
+        <p class="pillar-desc" data-i18n="p2.desc">
+          Our methodology is 30+ years of startup experience distilled into a
+          decision-support dashboard — tailored for Build and Growth stages
+          with precision.
+        </p>
+        <ul class="pillar-feats">
+          <li data-i18n="p2.li1">Value chain &amp; vertical mapping</li>
+          <li data-i18n="p2.li2">Competitive differentiation analysis</li>
+          <li data-i18n="p2.li3">Pricing model &amp; defensibility review</li>
+          <li data-i18n="p2.li4">Technology scalability evaluation</li>
+        </ul>
+      </div>
+
+      <div class="pillar reveal delay-2">
+        <div class="pillar-num">03</div>
+        <div class="pillar-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+        </div>
+        <div class="pillar-title" data-i18n="p3.title">Operational Path</div>
+        <p class="pillar-desc" data-i18n="p3.desc">
+          A structured, interactive engagement — individual coaching, team
+          sessions, and cross-functional workshops — driving deep alignment
+          and real operational output.
+        </p>
+        <ul class="pillar-feats">
+          <li data-i18n="p3.li1">Preparatory + deep-dive phases</li>
+          <li data-i18n="p3.li2">Individual &amp; team working sessions</li>
+          <li data-i18n="p3.li3">Cross-functional alignment workshops</li>
+          <li data-i18n="p3.li4">Weekly structured progress cadence</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ STATS ══════════════════ -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-block reveal">
+      <div class="stat-big">10+</div>
+      <div class="stat-desc" data-i18n="stat1.desc">Years of experience<br>in Innovation</div>
+    </div>
+    <div class="stat-block reveal delay-1">
+      <div class="stat-big">30+</div>
+      <div class="stat-desc" data-i18n="stat2.desc">Years of cumulative<br>Startup experience</div>
+    </div>
+    <div class="stat-block reveal delay-2">
+      <div class="stat-big">6+</div>
+      <div class="stat-desc" data-i18n="stat3.desc">Startups founded<br>by our team</div>
+    </div>
+    <div class="stat-block reveal delay-3">
+      <div class="stat-big">3</div>
+      <div class="stat-desc" data-i18n="stat4.desc">Integrated services<br>Build · Growth · Monitor</div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════ TEAM ══════════════════ -->
+<!-- Photos: replace placehold.co URLs with real images saved to brand_assets/team/ -->
+<section id="team">
+  <div class="section-wrap">
+    <p class="section-label" data-i18n="team.label">The Team</p>
+    <h2 class="section-title" data-i18n="team.title">People Behind<br>ValuEngyne</h2>
+
+    <div class="team-grid">
+
+      <!-- Enrico Castellani -->
+      <div class="team-card reveal">
+        <div class="team-photo-wrap">
+          <img src="brand_assets/team/enrico-castellani.png" alt="Enrico Castellani" />
+        </div>
+        <div class="team-info">
+          <div class="team-name">Enrico Castellani</div>
+          <a href="https://www.linkedin.com/in/enrico-castellani-6a6b8929/" target="_blank" rel="noopener noreferrer" class="team-linkedin" aria-label="Enrico Castellani on LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Sara Tiddia -->
+      <div class="team-card reveal delay-1">
+        <div class="team-photo-wrap">
+          <img src="brand_assets/team/sara-tiddia.png" alt="Sara Tiddia" />
+        </div>
+        <div class="team-info">
+          <div class="team-name">Sara Tiddia</div>
+          <a href="https://www.linkedin.com/in/sara-tiddia-36447794/" target="_blank" rel="noopener noreferrer" class="team-linkedin" aria-label="Sara Tiddia on LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Giuseppe Giordano -->
+      <div class="team-card reveal delay-2">
+        <div class="team-photo-wrap">
+          <img src="brand_assets/team/giuseppe-giordano.png" alt="Giuseppe Giordano" />
+        </div>
+        <div class="team-info">
+          <div class="team-name">Giuseppe Giordano</div>
+          <a href="https://www.linkedin.com/in/gcg84/" target="_blank" rel="noopener noreferrer" class="team-linkedin" aria-label="Giuseppe Giordano on LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+      <!-- Marco Martellacci -->
+      <div class="team-card reveal delay-3">
+        <div class="team-photo-wrap">
+          <img src="brand_assets/team/marco-martellacci.png" alt="Marco Martellacci" />
+        </div>
+        <div class="team-info">
+          <div class="team-name">Marco Martellacci</div>
+          <a href="https://www.linkedin.com/in/marco-martellacci/" target="_blank" rel="noopener noreferrer" class="team-linkedin" aria-label="Marco Martellacci on LinkedIn">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+            LinkedIn
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ ACCELERATORS ══════════════════ -->
+<section id="accelerators" class="accel-bg">
+  <div class="section-wrap">
+    <div class="accel-grid">
+      <div>
+        <p class="section-label" data-i18n="accel.label">For Funds &amp; Accelerators</p>
+        <h2 class="section-title" data-i18n="accel.title">Engyne Total</h2>
+        <p class="section-body" data-i18n="accel.body">
+          A fully integrated package for Accelerators and Venture Builders —
+          combining Build, Growth, and Monitoring into a single solution
+          that supports your entire portfolio, from selection to sustained performance.
+        </p>
+        <ul class="benefits">
+          <li class="benefit">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="1,6 4,9 11,2"/></svg></div>
+            <span class="benefit-text" data-i18n="accel.b1"><strong>Greater Efficiency:</strong> Reduce research and selection costs for portfolio startups</span>
+          </li>
+          <li class="benefit">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="1,6 4,9 11,2"/></svg></div>
+            <span class="benefit-text" data-i18n="accel.b2"><strong>Greater Effectiveness:</strong> Richer early-stage selection criteria and clearer startup trajectory</span>
+          </li>
+          <li class="benefit">
+            <div class="check-circle"><svg viewBox="0 0 12 12"><polyline points="1,6 4,9 11,2"/></svg></div>
+            <span class="benefit-text" data-i18n="accel.b3"><strong>Investment Protection:</strong> Continuous monitoring of startup performance across your portfolio</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="accel-items reveal">
+        <div class="accel-item">
+          <div class="accel-dot"></div>
+          <div>
+            <div class="accel-title" data-i18n="accel.item1.title">Engyne Build</div>
+            <div class="accel-desc" data-i18n="accel.item1.desc">Early-stage startups: identify and validate unique positioning before scaling. 4-month structured engagement.</div>
+          </div>
+        </div>
+        <div class="accel-item">
+          <div class="accel-dot"></div>
+          <div>
+            <div class="accel-title" data-i18n="accel.item2.title">Engyne Growth</div>
+            <div class="accel-desc" data-i18n="accel.item2.desc">Late-stage startups: identify revenue focus areas and build an operational plan to grow or re-accelerate.</div>
+          </div>
+        </div>
+        <div class="accel-item">
+          <div class="accel-dot"></div>
+          <div>
+            <div class="accel-title" data-i18n="accel.item3.title">Engyne Monitoring</div>
+            <div class="accel-desc" data-i18n="accel.item3.desc">Portfolio-wide reporting and dashboard. Real-time visibility into each startup's progress and financial health.</div>
+          </div>
+        </div>
+        <div class="accel-item featured">
+          <div class="accel-dot"></div>
+          <div>
+            <div class="accel-title featured" data-i18n="accel.item4.title">Engyne Total</div>
+            <div class="accel-desc" data-i18n="accel.item4.desc">All three services integrated — the complete solution for Accelerators and Venture Builders managing portfolio calls.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════ CTA ══════════════════ -->
+<section id="contact" class="cta-wrap">
+  <div class="cta-glow"></div>
+  <p class="section-label" style="justify-content:center; margin-bottom:2rem;" data-i18n="cta.label">Get Started</p>
+  <h2 class="cta-title" data-i18n="cta.title">Ready to Build<br>Your Value Engine?</h2>
+  <p class="cta-sub" data-i18n="cta.sub">
+    Let's talk about where your startup is today and where it needs to go.
+    The first conversation is always free.
+  </p>
+  <div class="cta-btns">
+    <a href="mailto:hello@valuengyne.com" class="btn-primary" style="font-size:1rem; padding:1rem 2.5rem;" data-i18n="cta.btn.call">
+      Book a Discovery Call
+    </a>
+    <a href="#services" class="btn-ghost" style="font-size:1rem; padding:1rem 2.5rem;" data-i18n="cta.btn.services">
+      Explore Services
+    </a>
+  </div>
+</section>
+
+<!-- ══════════════════ FOOTER ══════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="logo-wrap">
+        <img src="brand_assets/valuengyne_logo.png" alt="ValuEngyne" />
+      </div>
+      <div class="footer-tagline" data-i18n="footer.tagline">Start Up With Value</div>
+    </div>
+    <ul class="footer-links">
+      <li><a href="#services"     data-i18n="nav.services">Services</a></li>
+      <li><a href="#approach"     data-i18n="nav.approach">Our Approach</a></li>
+      <li><a href="#team"         data-i18n="nav.team">Team</a></li>
+      <li><a href="#accelerators" data-i18n="nav.funds">For Funds</a></li>
+      <li><a href="#contact"      data-i18n="nav.contact">Contact</a></li>
+    </ul>
+    <span class="footer-copy" data-i18n="footer.copy">© 2026 ValuEngyne. All rights reserved.</span>
+  </div>
+</footer>
+
+<script>
+  // ── Translations ──────────────────────────────────────────────────────────
+  // All values are hardcoded strings authored here (no user input).
+  // DOMPurify is used as a safety net for the markup-containing entries.
+  const ALLOWED = { ALLOWED_TAGS: ['em', 'br', 'strong'], ALLOWED_ATTR: [] };
+
+  const T = {
+    en: {
+      'nav.services':      'Services',
+      'nav.approach':      'Our Approach',
+      'nav.funds':         'For Funds',
+      'nav.team':          'Team',
+      'nav.contact':       'Contact',
+      'nav.cta':           'Book a Call',
+      'hero.eyebrow':      'Start Up With Value',
+      'hero.h1a':          'Most Startups',
+      'hero.h1b':          "Don't Fail On Execution.",
+      'hero.h1c':          'They Fail On Value Creation.',
+      'hero.sub':          'ValuEngyne helps startups identify, validate, and execute a unique, reachable, and defensible market positioning \u2014 turning early promise into sustainable revenue growth.',
+      'hero.btn.services': 'Explore Services',
+      'hero.btn.call':     'Book a Discovery Call',
+      'hero.stat1':        'Years in Innovation',
+      'hero.stat2':        'Years Startup Experience',
+      'hero.stat3':        'Startups Founded',
+      'problem.label':     'The Root Cause',
+      'problem.quote':     'When positioning is <em>clear</em>, you can build a <em>focused</em> and <em>sustainable</em> revenue growth plan.<br>Most startups skip this step.',
+      'problem.sub':       "We make sure yours doesn\u2019t.",
+      'svc.label':         'What We Do',
+      'svc.title':         'Our Services',
+      'svc.body':          'Two focused services built for different stages of the startup journey \u2014 one clear outcome: revenue growth driven by validated positioning.',
+      'svc.build.badge':   'Early Stage',
+      'svc.build.sub':     'Find Your Positioning',
+      'svc.build.desc':    'For startups that need to find and validate their market positioning. A structured 4-month engagement to identify where and how you create value that is unique, reachable, and defensible.',
+      'svc.build.meta1':   'Month Duration',
+      'svc.build.meta2':   'Analysis Layers',
+      'svc.output.label':  'Output',
+      'svc.build.output':  '12-Month Go-To-Market Plan',
+      'svc.build.li1':     'Market verticals &amp; value creation analysis',
+      'svc.build.li2':     'Competitive positioning map',
+      'svc.build.li3':     'Technology &amp; scalability assessment',
+      'svc.growth.badge':  'Late Stage',
+      'svc.growth.sub':    'Accelerate Your Revenue',
+      'svc.growth.desc':   'For startups that need to grow or re-ignite growth. We identify the operational levers and revenue focus areas to build an accelerating, sustainable trajectory.',
+      'svc.growth.meta1':  'Month Core',
+      'svc.growth.meta2':  'Months Follow-On',
+      'svc.growth.output': 'Custom Growth Work Plan',
+      'svc.growth.li1':    'Revenue focus area identification',
+      'svc.growth.li2':    'Go-to-market execution support',
+      'svc.growth.li3':    'Progress monitoring &amp; iteration',
+      'pillars.label':     'Our Approach',
+      'pillars.title':     'Three Pillars of Uniqueness',
+      'pillars.body':      "ValuEngyne\u2019s value is built on three integrated pillars that combine proprietary technology, a battle-tested methodology, and deep human engagement.",
+      'p1.title':          'Proprietary Platform',
+      'p1.desc':           'A unique digital platform at the core of our model \u2014 integrating multi-source data, advanced AI, and a full client journey from assessment through execution.',
+      'p1.li1':            'Startup databases &amp; sector benchmarks',
+      'p1.li2':            'Multi-model AI (LLM, predictive, vertical AI)',
+      'p1.li3':            'Structured customer onboarding &amp; CRM',
+      'p1.li4':            'Workflow automation for scale',
+      'p2.title':          'The Playbook',
+      'p2.desc':           'Our methodology is 30+ years of startup experience distilled into a decision-support dashboard \u2014 tailored for Build and Growth stages with precision.',
+      'p2.li1':            'Value chain &amp; vertical mapping',
+      'p2.li2':            'Competitive differentiation analysis',
+      'p2.li3':            'Pricing model &amp; defensibility review',
+      'p2.li4':            'Technology scalability evaluation',
+      'p3.title':          'Operational Path',
+      'p3.desc':           'A structured, interactive engagement \u2014 individual coaching, team sessions, and cross-functional workshops \u2014 driving deep alignment and real operational output.',
+      'p3.li1':            'Preparatory + deep-dive phases',
+      'p3.li2':            'Individual &amp; team working sessions',
+      'p3.li3':            'Cross-functional alignment workshops',
+      'p3.li4':            'Weekly structured progress cadence',
+      'stat1.desc':        'Years of experience<br>in Innovation',
+      'stat2.desc':        'Years of cumulative<br>Startup experience',
+      'stat3.desc':        'Startups founded<br>by our team',
+      'stat4.desc':        'Integrated services<br>Build \u00b7 Growth \u00b7 Monitor',
+      'team.label':        'The Team',
+      'team.title':        'People Behind<br>ValuEngyne',
+      'accel.label':       'For Funds &amp; Accelerators',
+      'accel.title':       'Engyne Total',
+      'accel.body':        'A fully integrated package for Accelerators and Venture Builders \u2014 combining Build, Growth, and Monitoring into a single solution that supports your entire portfolio, from selection to sustained performance.',
+      'accel.b1':          '<strong>Greater Efficiency:</strong> Reduce research and selection costs for portfolio startups',
+      'accel.b2':          '<strong>Greater Effectiveness:</strong> Richer early-stage selection criteria and clearer startup trajectory',
+      'accel.b3':          '<strong>Investment Protection:</strong> Continuous monitoring of startup performance across your portfolio',
+      'accel.item1.title': 'Engyne Build',
+      'accel.item1.desc':  'Early-stage startups: identify and validate unique positioning before scaling. 4-month structured engagement.',
+      'accel.item2.title': 'Engyne Growth',
+      'accel.item2.desc':  'Late-stage startups: identify revenue focus areas and build an operational plan to grow or re-accelerate.',
+      'accel.item3.title': 'Engyne Monitoring',
+      'accel.item3.desc':  "Portfolio-wide reporting and dashboard. Real-time visibility into each startup\u2019s progress and financial health.",
+      'accel.item4.title': 'Engyne Total',
+      'accel.item4.desc':  'All three services integrated \u2014 the complete solution for Accelerators and Venture Builders managing portfolio calls.',
+      'cta.label':         'Get Started',
+      'cta.title':         'Ready to Build<br>Your Value Engine?',
+      'cta.sub':           "Let\u2019s talk about where your startup is today and where it needs to go. The first conversation is always free.",
+      'cta.btn.call':      'Book a Discovery Call',
+      'cta.btn.services':  'Explore Services',
+      'footer.tagline':    'Start Up With Value',
+      'footer.copy':       '\u00a9 2026 ValuEngyne. All rights reserved.',
+    },
+    it: {
+      'nav.services':      'Servizi',
+      'nav.approach':      'Il Nostro Approccio',
+      'nav.funds':         'Per i Fondi',
+      'nav.team':          'Team',
+      'nav.contact':       'Contatti',
+      'nav.cta':           'Prenota una Call',
+      'hero.eyebrow':      'Start Up With Value',
+      'hero.h1a':          'La Maggior Parte delle Startup',
+      'hero.h1b':          "Non Fallisce sull\u2019Esecuzione.",
+      'hero.h1c':          'Ma sulla Creazione di Valore.',
+      'hero.sub':          'ValuEngyne aiuta le startup a identificare, validare ed eseguire un posizionamento di mercato unico, raggiungibile e difendibile \u2014 trasformando le prime promesse in una crescita sostenibile dei ricavi.',
+      'hero.btn.services': 'Esplora i Servizi',
+      'hero.btn.call':     'Prenota una Call',
+      'hero.stat1':        "Anni nell\u2019Innovazione",
+      'hero.stat2':        'Anni di Esperienza nelle Startup',
+      'hero.stat3':        'Startup Fondate',
+      'problem.label':     'La Causa Principale',
+      'problem.quote':     'Quando il posizionamento \u00e8 <em>chiaro</em>, puoi costruire un piano di crescita dei ricavi <em>focalizzato</em> e <em>sostenibile</em>.<br>La maggior parte delle startup salta questo passaggio.',
+      'problem.sub':       'Noi ci assicuriamo che la tua non lo faccia.',
+      'svc.label':         'Cosa Facciamo',
+      'svc.title':         'I Nostri Servizi',
+      'svc.body':          'Due servizi focalizzati per diverse fasi del percorso startup \u2014 un obiettivo chiaro: crescita dei ricavi guidata da un posizionamento validato.',
+      'svc.build.badge':   'Early Stage',
+      'svc.build.sub':     'Trova il Tuo Posizionamento',
+      'svc.build.desc':    'Per startup che devono trovare e validare il proprio posizionamento di mercato. Un percorso strutturato di 4 mesi per identificare dove e come si crea valore unico, raggiungibile e difendibile.',
+      'svc.build.meta1':   'Mesi di Durata',
+      'svc.build.meta2':   'Livelli di Analisi',
+      'svc.output.label':  'Output',
+      'svc.build.output':  'Piano Go-To-Market di 12 Mesi',
+      'svc.build.li1':     'Analisi dei verticali &amp; creazione di valore',
+      'svc.build.li2':     'Mappa del posizionamento competitivo',
+      'svc.build.li3':     'Valutazione tecnologica &amp; scalabilit\u00e0',
+      'svc.growth.badge':  'Late Stage',
+      'svc.growth.sub':    'Accelera i Tuoi Ricavi',
+      'svc.growth.desc':   'Per startup che devono crescere o tornare a crescere. Identifichiamo le leve operative e le aree focus sui ricavi per costruire una traiettoria accelerata e sostenibile.',
+      'svc.growth.meta1':  'Mese Core',
+      'svc.growth.meta2':  'Mesi di Follow-On',
+      'svc.growth.output': 'Piano di Lavoro per la Crescita',
+      'svc.growth.li1':    'Identificazione delle aree focus sui ricavi',
+      'svc.growth.li2':    "Supporto all\u2019esecuzione go-to-market",
+      'svc.growth.li3':    'Monitoraggio dei progressi &amp; iterazione',
+      'pillars.label':     'Il Nostro Approccio',
+      'pillars.title':     'Tre Pilastri di Unicit\u00e0',
+      'pillars.body':      'Il valore di ValuEngyne \u00e8 costruito su tre pilastri integrati che combinano tecnologia proprietaria, una metodologia collaudata e un profondo coinvolgimento umano.',
+      'p1.title':          'Piattaforma Proprietaria',
+      'p1.desc':           "Una piattaforma digitale unica al centro del nostro modello \u2014 integra dati multi-source, AI avanzata e un percorso completo del cliente dall\u2019assessment all\u2019esecuzione.",
+      'p1.li1':            'Database startup &amp; benchmark di settore',
+      'p1.li2':            'AI multi-modello (LLM, predittivo, AI verticale)',
+      'p1.li3':            'Onboarding strutturato &amp; CRM cliente',
+      'p1.li4':            'Automazione dei flussi per la scalabilit\u00e0',
+      'p2.title':          'Il Playbook',
+      'p2.desc':           "La nostra metodologia \u00e8 l\u2019esperienza di oltre 30 anni nelle startup distillata in un cruscotto decisionale \u2014 adattata alle fasi Build e Growth con precisione.",
+      'p2.li1':            'Mappatura della value chain &amp; verticali',
+      'p2.li2':            'Analisi della differenziazione competitiva',
+      'p2.li3':            'Revisione del pricing model &amp; difendibilit\u00e0',
+      'p2.li4':            'Valutazione della scalabilit\u00e0 tecnologica',
+      'p3.title':          'Percorso Operativo',
+      'p3.desc':           'Un percorso interattivo strutturato \u2014 coaching individuale, sessioni di team e workshop cross-funzionali \u2014 per un forte coinvolgimento e output operativo concreto.',
+      'p3.li1':            'Fase preparatoria + deep-dive',
+      'p3.li2':            'Sessioni individuali &amp; di team',
+      'p3.li3':            'Workshop di allineamento cross-funzionale',
+      'p3.li4':            'Cadenza settimanale strutturata',
+      'stat1.desc':        "Anni di esperienza<br>nell\u2019Innovazione",
+      'stat2.desc':        'Anni cumulativi di esperienza<br>nelle Startup',
+      'stat3.desc':        'Startup fondate<br>dal nostro team',
+      'stat4.desc':        'Servizi integrati<br>Build \u00b7 Growth \u00b7 Monitor',
+      'team.label':        'Il Team',
+      'team.title':        'Le Persone di<br>ValuEngyne',
+      'accel.label':       'Per Fondi &amp; Acceleratori',
+      'accel.title':       'Engyne Total',
+      'accel.body':        "Un pacchetto completamente integrato per Acceleratori e Venture Builder \u2014 combina Build, Growth e Monitoring in un\u2019unica soluzione che supporta l\u2019intero portafoglio, dalla selezione alle performance sostenute.",
+      'accel.b1':          '<strong>Maggiore Efficienza:</strong> Riduzione dei costi di ricerca e selezione delle startup in portafoglio',
+      'accel.b2':          '<strong>Maggiore Efficacia:</strong> Criteri di selezione early-stage pi\u00f9 ricchi e traiettoria startup pi\u00f9 chiara',
+      'accel.b3':          "<strong>Protezione dell\u2019Investimento:</strong> Monitoraggio continuo delle performance delle startup in tutto il portafoglio",
+      'accel.item1.title': 'Engyne Build',
+      'accel.item1.desc':  'Startup early-stage: identificazione e validazione del posizionamento unico prima di scalare. Percorso strutturato di 4 mesi.',
+      'accel.item2.title': 'Engyne Growth',
+      'accel.item2.desc':  'Startup late-stage: identificazione delle aree focus sui ricavi e piano operativo per crescere o tornare a crescere.',
+      'accel.item3.title': 'Engyne Monitoring',
+      'accel.item3.desc':  "Reporting e dashboard per l\u2019intero portafoglio. Visibilit\u00e0 in tempo reale sui progressi e sulla salute finanziaria di ogni startup.",
+      'accel.item4.title': 'Engyne Total',
+      'accel.item4.desc':  'Tutti e tre i servizi integrati \u2014 la soluzione completa per Acceleratori e Venture Builder che gestiscono call sul portafoglio.',
+      'cta.label':         'Inizia Ora',
+      'cta.title':         'Pronto a Costruire<br>il Tuo Value Engine?',
+      'cta.sub':           'Parliamo di dove si trova la tua startup oggi e dove deve arrivare. Il primo colloquio \u00e8 sempre gratuito.',
+      'cta.btn.call':      'Prenota una Call',
+      'cta.btn.services':  'Esplora i Servizi',
+      'footer.tagline':    'Start Up With Value',
+      'footer.copy':       '\u00a9 2026 ValuEngyne. Tutti i diritti riservati.',
+    }
+  };
+
+  function applyLang(lang) {
+    const dict = T[lang];
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.dataset.i18n;
+      if (dict[key] !== undefined) {
+        el.innerHTML = DOMPurify.sanitize(dict[key], ALLOWED);
+      }
+    });
+    document.documentElement.lang = lang;
+    document.querySelectorAll('.lang-btn').forEach(function(btn) {
+      btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+  }
+
+  document.querySelectorAll('.lang-btn').forEach(function(btn) {
+    btn.addEventListener('click', function() { applyLang(btn.dataset.lang); });
+  });
+
+  // ── Scroll reveal ─────────────────────────────────────────────────────────
+  var io = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.08 });
+  document.querySelectorAll('.reveal').forEach(function(el) { io.observe(el); });
+
+  // ── Nav opacity on scroll ─────────────────────────────────────────────────
+  var nav = document.getElementById('nav');
+  window.addEventListener('scroll', function() {
+    nav.style.background = window.scrollY > 24
+      ? 'rgba(8,13,22,0.97)'
+      : 'rgba(8,13,22,0.82)';
+  }, { passive: true });
+</script>
+</body>
+</html>
