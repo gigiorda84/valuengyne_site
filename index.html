@@ -3,7 +3,65 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ValuEngyne — Start Up With Value</title>
+
+  <!-- Primary SEO -->
+  <title>ValuEngyne | Startup Positioning &amp; Growth Consulting</title>
+  <meta name="description" content="ValuEngyne helps startups identify, validate, and execute defensible market positioning — turning early promise into sustainable revenue growth. Book a free discovery call." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://www.valuengyne.com/" />
+
+  <!-- hreflang -->
+  <link rel="alternate" hreflang="en" href="https://www.valuengyne.com/" />
+  <link rel="alternate" hreflang="it" href="https://www.valuengyne.com/?lang=it" />
+  <link rel="alternate" hreflang="x-default" href="https://www.valuengyne.com/" />
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="/brand_assets/valuengyne_logo.png" />
+
+  <!-- Open Graph -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:url"         content="https://www.valuengyne.com/" />
+  <meta property="og:site_name"   content="ValuEngyne" />
+  <meta property="og:title"       content="ValuEngyne | Startup Positioning &amp; Growth Consulting" />
+  <meta property="og:description" content="We help startups validate their market positioning and build sustainable revenue growth. Expert consulting for early-stage, late-stage startups and accelerators." />
+  <meta property="og:image"       content="https://www.valuengyne.com/brand_assets/valuengyne_logo.png" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card"        content="summary_large_image" />
+  <meta name="twitter:title"       content="ValuEngyne | Startup Positioning &amp; Growth Consulting" />
+  <meta name="twitter:description" content="We help startups validate their market positioning and build sustainable revenue growth. Expert consulting for early-stage, late-stage startups and accelerators." />
+  <meta name="twitter:image"       content="https://www.valuengyne.com/brand_assets/valuengyne_logo.png" />
+
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "ValuEngyne",
+    "url": "https://www.valuengyne.com",
+    "email": "hello@valuengyne.com",
+    "description": "Startup strategy consulting firm specializing in market positioning validation and revenue growth. Services: Engyne Build, Engyne Growth, Engyne Total for accelerators.",
+    "slogan": "Start Up With Value",
+    "founder": [
+      {"@type": "Person", "name": "Enrico Castellani", "sameAs": "https://www.linkedin.com/in/enrico-castellani-6a6b8929/"},
+      {"@type": "Person", "name": "Sara Tiddia", "sameAs": "https://www.linkedin.com/in/sara-tiddia-36447794/"},
+      {"@type": "Person", "name": "Giuseppe Giordano", "sameAs": "https://www.linkedin.com/in/gcg84/"},
+      {"@type": "Person", "name": "Marco Martellacci", "sameAs": "https://www.linkedin.com/in/marco-martellacci/"}
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Consulting Services",
+      "itemListElement": [
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Engyne Build", "description": "4-month engagement to identify and validate unique market positioning for early-stage startups."}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Engyne Growth", "description": "Revenue acceleration consulting for late-stage startups — 1 month core + 2 months follow-on."}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Engyne Total", "description": "Fully integrated Build, Growth, and Monitoring solution for Accelerators and Venture Builders."}}
+      ]
+    },
+    "areaServed": "Worldwide",
+    "inLanguage": ["en", "it"]
+  }
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@300;400;500;600;700&family=Barlow:wght@300;400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,400&display=swap" rel="stylesheet" />
@@ -129,7 +187,10 @@
     .hero-content {
       position: relative; z-index: 1;
       max-width: 1280px; margin: 0 auto; padding: 0 2rem; width: 100%;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 4rem; align-items: center;
     }
+    .hero-text {}
     .hero-eyebrow {
       font-family: 'Barlow', sans-serif; font-weight: 500;
       font-size: 0.7rem; letter-spacing: 0.25em; text-transform: uppercase;
@@ -139,18 +200,18 @@
     .hero-eyebrow::before {
       content: ''; display: block; width: 36px; height: 1px; background: var(--teal);
     }
-    h1.line-a {
+    .line-a {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(4rem, 9.5vw, 8.5rem); line-height: 0.92;
       letter-spacing: 0.01em; color: var(--text-primary);
     }
-    h1.line-b {
+    .line-b {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(4rem, 9.5vw, 8.5rem); line-height: 0.92;
       letter-spacing: 0.01em; color: var(--teal);
       margin-bottom: 0.5rem;
     }
-    h1.line-c {
+    .line-c {
       font-family: 'Bebas Neue', sans-serif;
       font-size: clamp(2.2rem, 4.5vw, 4rem); line-height: 1;
       letter-spacing: 0.01em; color: var(--text-primary);
@@ -561,20 +622,264 @@
     .delay-2 { transition-delay: 0.2s; }
     .delay-3 { transition-delay: 0.32s; }
 
+    /* ── HERO DASHBOARD CARD ── */
+    .hero-card-wrap {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: flex-start;
+    }
+    .hero-card {
+      background: rgba(10, 16, 28, 0.9);
+      border: 1px solid rgba(38,197,184,0.2);
+      border-radius: 16px;
+      backdrop-filter: blur(32px); -webkit-backdrop-filter: blur(32px);
+      padding: 1.75rem; width: 100%; max-width: 400px;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(38,197,184,0.06), inset 0 1px 0 rgba(255,255,255,0.05);
+      animation: card-float 6s ease-in-out infinite;
+    }
+    @keyframes card-float {
+      0%, 100% { transform: translateY(0px); }
+      50%       { transform: translateY(-8px); }
+    }
+    .hcard-head {
+      display: flex; justify-content: space-between; align-items: flex-start;
+      margin-bottom: 1.4rem;
+    }
+    .hcard-head-left { display: flex; align-items: center; gap: 0.75rem; }
+    .hcard-logo {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', sans-serif; font-size: 0.88rem;
+      color: var(--bg-base); letter-spacing: 0.03em; flex-shrink: 0;
+    }
+    .hcard-title-text {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.88rem; color: var(--text-primary);
+    }
+    .hcard-sub-text {
+      font-size: 0.6rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-top: 0.1rem;
+    }
+    .hcard-score-badge {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.62rem; letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--teal); background: var(--teal-dim);
+      border: 1px solid var(--teal-border); padding: 0.22rem 0.65rem;
+      border-radius: 20px; display: flex; align-items: center; gap: 0.3rem; white-space: nowrap;
+    }
+    .hcard-score-badge::before { content: '●'; font-size: 0.4rem; }
+    .hcard-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin-bottom: 0.75rem; }
+    .hcard-metric {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px; padding: 0.85rem 1rem;
+    }
+    .hcard-metric-label {
+      font-size: 0.57rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.3rem;
+    }
+    .hcard-metric-val {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.85rem;
+      line-height: 1; margin-bottom: 0.45rem;
+    }
+    .hcard-metric-val.teal  { color: var(--teal); }
+    .hcard-metric-val.white { color: var(--text-primary); }
+    .hcard-bar { height: 3px; border-radius: 2px; background: rgba(255,255,255,0.08); overflow: hidden; }
+    .hcard-bar-fill { height: 100%; border-radius: 2px; background: linear-gradient(90deg, var(--teal), var(--teal-light)); }
+    .hcard-chart {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px; padding: 0.85rem 1rem;
+    }
+    .hcard-chart-label {
+      font-size: 0.57rem; color: var(--text-muted);
+      text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 0.65rem;
+    }
+
+    /* ── PROBLEM TWO-COLUMN ── */
+    .problem-wrap { text-align: left; }
+    .problem-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 2rem;
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+    .problem-text .section-label { justify-content: flex-start; }
+    .problem-text .problem-quote { max-width: none; text-align: left; }
+    .problem-text .problem-sub   { text-align: left; }
+    .problem-metrics { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .pm-card {
+      background: var(--bg-elevated); border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 10px; padding: 1.5rem;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+    .pm-card:hover { border-color: var(--teal-border); transform: translateY(-2px); }
+    .pm-val {
+      font-family: 'Bebas Neue', sans-serif; font-size: 2.2rem;
+      color: var(--teal); line-height: 1; margin-bottom: 0.5rem;
+    }
+    .pm-desc { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; }
+
+    /* ── TEAM ROLE + BIO ── */
+    .team-role {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 600;
+      font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+      color: var(--teal); margin-bottom: 0.7rem;
+    }
+    .team-bio {
+      font-size: 0.8rem; line-height: 1.65; color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+
+    /* ── ACCEL FLOW STEPS ── */
+    .accel-flow { display: flex; flex-direction: column; gap: 0; }
+    .accel-flow-step {
+      display: flex; gap: 1.25rem; align-items: flex-start;
+      padding: 1rem 1.25rem;
+      background: rgba(255,255,255,0.02);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 10px; margin-bottom: 0.65rem;
+      transition: background 0.25s, border-color 0.25s, transform 0.2s;
+    }
+    .accel-flow-step:hover { background: rgba(38,197,184,0.05); border-color: var(--teal-border); transform: translateX(4px); }
+    .accel-flow-step.featured { border-color: var(--teal-border); background: var(--teal-dim); }
+    .accel-step-num {
+      font-family: 'Bebas Neue', sans-serif; font-size: 1.5rem;
+      color: var(--teal); line-height: 1.1; min-width: 2.5rem; opacity: 0.7;
+    }
+    .accel-flow-step.featured .accel-step-num { opacity: 1; }
+    .accel-step-title {
+      font-family: 'Barlow Condensed', sans-serif; font-weight: 700;
+      font-size: 0.92rem; letter-spacing: 0.05em;
+      color: var(--text-primary); margin-bottom: 0.2rem;
+    }
+    .accel-flow-step.featured .accel-step-title { color: var(--teal); }
+    .accel-step-desc { font-size: 0.78rem; color: var(--text-muted); line-height: 1.5; }
+
+    /* ══ SECTION BACKGROUND OVERRIDES ══ */
+
+    /* PROBLEM — white */
+    .problem-wrap {
+      background: #ffffff;
+      border-top: 1px solid rgba(0,0,0,0.07);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .problem-wrap::before {
+      background: radial-gradient(ellipse 60% 70% at 50% 50%, rgba(38,197,184,0.05) 0%, transparent 70%);
+    }
+    .problem-wrap .problem-quote { color: #080D16; }
+    .problem-wrap .problem-sub { color: #7F8EA0; }
+    .pm-card {
+      background: #f0f4f8;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    .pm-card:hover { border-color: rgba(38,197,184,0.45); }
+    .pm-val { color: var(--teal); }
+    .pm-desc { color: #445060; }
+
+    /* PILLARS / APPROACH — white */
+    .pillars-bg {
+      background: #ffffff;
+      border-top: 1px solid rgba(0,0,0,0.07);
+      border-bottom: 1px solid rgba(0,0,0,0.07);
+    }
+    .pillars-bg .section-title { color: #080D16; }
+    .pillars-bg .section-body { color: #445060; }
+    .pillar {
+      background: #f0f4f8;
+      border: 1px solid rgba(0,0,0,0.07);
+    }
+    .pillar:hover {
+      border-color: var(--teal);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.08), 0 0 0 1px rgba(38,197,184,0.2);
+      transform: translateY(-5px);
+    }
+    .pillar-num { color: rgba(38,197,184,0.12); }
+    .pillar-title { color: #080D16; }
+    .pillar-desc { color: #445060; }
+    .pillar-feats li { color: #445060; }
+
+    /* TEAM — white */
+    #team { background: #ffffff; }
+    #team .section-title { color: #080D16; }
+    .team-card {
+      background: #ffffff;
+      border: 1px solid rgba(0,0,0,0.08);
+      box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+    }
+    .team-card:hover {
+      border-color: rgba(38,197,184,0.45);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.1), 0 0 0 1px rgba(38,197,184,0.15);
+    }
+    .team-name { color: #080D16; }
+    .team-bio { color: #7F8EA0; }
+
+    /* ACCELERATORS — teal */
+    .accel-bg {
+      background: var(--teal);
+      border-top: none;
+    }
+    .accel-bg .section-label { color: rgba(8,13,22,0.6); }
+    .accel-bg .section-label::before { background: rgba(8,13,22,0.35); }
+    .accel-bg .section-title { color: #080D16; }
+    .accel-bg .section-body { color: rgba(8,13,22,0.75); }
+    .accel-bg .benefit-text { color: rgba(8,13,22,0.8); }
+    .accel-bg .benefit-text strong { color: #080D16; font-weight: 600; }
+    .accel-bg .check-circle {
+      background: rgba(8,13,22,0.15);
+      border-color: rgba(8,13,22,0.25);
+    }
+    .accel-bg .check-circle svg { stroke: #080D16; }
+    .accel-bg .accel-flow-step {
+      background: rgba(8,13,22,0.1);
+      border-color: rgba(8,13,22,0.1);
+    }
+    .accel-bg .accel-flow-step:hover {
+      background: rgba(8,13,22,0.18);
+      border-color: rgba(8,13,22,0.28);
+    }
+    .accel-bg .accel-flow-step.featured {
+      background: rgba(8,13,22,0.22);
+      border-color: rgba(8,13,22,0.35);
+    }
+    .accel-bg .accel-step-num { color: rgba(8,13,22,0.6); }
+    .accel-bg .accel-flow-step.featured .accel-step-num { color: #080D16; }
+    .accel-bg .accel-step-title { color: #080D16; }
+    .accel-bg .accel-flow-step.featured .accel-step-title { color: #080D16; }
+    .accel-bg .accel-step-desc { color: rgba(8,13,22,0.65); }
+    .accel-bg .accel-item {
+      background: rgba(8,13,22,0.1);
+      border-color: rgba(8,13,22,0.1);
+    }
+    .accel-bg .accel-item:hover { border-color: rgba(8,13,22,0.3); }
+    .accel-bg .accel-item.featured {
+      background: rgba(8,13,22,0.2);
+      border-color: rgba(8,13,22,0.3);
+    }
+    .accel-bg .accel-dot { background: #080D16; }
+    .accel-bg .accel-title { color: #080D16; }
+    .accel-bg .accel-title.featured { color: #080D16; }
+    .accel-bg .accel-desc { color: rgba(8,13,22,0.7); }
+
     /* ── RESPONSIVE ── */
     @media (max-width: 900px) {
       .nav-links { display: none; }
+      .hero-content { grid-template-columns: 1fr; gap: 2.5rem; }
+      .hero-card-wrap { justify-content: center; }
       .services-grid { grid-template-columns: 1fr; }
       .pillars-grid { grid-template-columns: 1fr; }
       .stats-inner { grid-template-columns: repeat(2,1fr); }
       .accel-grid { grid-template-columns: 1fr; gap: 3rem; }
       .stat-block::after { display: none; }
       .team-grid { grid-template-columns: repeat(2, 1fr); }
+      .problem-inner { grid-template-columns: 1fr; gap: 3rem; }
     }
     @media (max-width: 500px) {
       .hero-stats { gap: 1.5rem; }
+      .hero-card-wrap { display: none; }
       .stats-inner { grid-template-columns: 1fr 1fr; }
       .team-grid { grid-template-columns: 1fr; }
+      .problem-metrics { grid-template-columns: 1fr 1fr; gap: 0.75rem; }
     }
   </style>
 </head>
@@ -634,31 +939,75 @@
   </div>
 
   <div class="hero-content">
-    <p class="hero-eyebrow" data-i18n="hero.eyebrow">Start Up With Value</p>
-    <h1 class="line-a" data-i18n="hero.h1a">Most Startups</h1>
-    <h1 class="line-b" data-i18n="hero.h1b">Don't Fail On Execution.</h1>
-    <h1 class="line-c" data-i18n="hero.h1c">They Fail On Value Creation.</h1>
-    <p class="hero-sub" data-i18n="hero.sub">
-      ValuEngyne helps startups identify, validate, and execute a unique,
-      reachable, and defensible market positioning — turning early promise
-      into sustainable revenue growth.
-    </p>
-    <div class="hero-btns">
-      <a href="#services" class="btn-primary" data-i18n="hero.btn.services">Explore Services</a>
-      <a href="#contact"  class="btn-ghost"   data-i18n="hero.btn.call">Book a Discovery Call</a>
+    <!-- Left column: text -->
+    <div class="hero-text">
+      <p class="hero-eyebrow" data-i18n="hero.eyebrow">Start Up With Value</p>
+      <h1 class="line-a" data-i18n="hero.h1a">Most Startups</h1>
+      <p class="line-b" data-i18n="hero.h1b">Don't Fail On Execution.</p>
+      <p class="line-c" data-i18n="hero.h1c">They Fail On Value Creation.</p>
+      <p class="hero-sub" data-i18n="hero.sub">
+        ValuEngyne helps startups identify, validate, and execute a unique,
+        reachable, and defensible market positioning — turning early promise
+        into sustainable revenue growth.
+      </p>
+      <div class="hero-btns">
+        <a href="#services" class="btn-primary" data-i18n="hero.btn.services">Explore Services</a>
+        <a href="#contact"  class="btn-ghost"   data-i18n="hero.btn.call">Book a Discovery Call</a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="stat-n">10+</div>
+          <div class="stat-l" data-i18n="hero.stat1">Years in Innovation</div>
+        </div>
+        <div>
+          <div class="stat-n">30+</div>
+          <div class="stat-l" data-i18n="hero.stat2">Years Startup Experience</div>
+        </div>
+        <div>
+          <div class="stat-n">6+</div>
+          <div class="stat-l" data-i18n="hero.stat3">Startups Founded</div>
+        </div>
+      </div>
     </div>
-    <div class="hero-stats">
-      <div>
-        <div class="stat-n">10+</div>
-        <div class="stat-l" data-i18n="hero.stat1">Years in Innovation</div>
-      </div>
-      <div>
-        <div class="stat-n">30+</div>
-        <div class="stat-l" data-i18n="hero.stat2">Years Startup Experience</div>
-      </div>
-      <div>
-        <div class="stat-n">6+</div>
-        <div class="stat-l" data-i18n="hero.stat3">Startups Founded</div>
+
+    <!-- Right column: dashboard card -->
+    <div class="hero-card-wrap">
+      <div class="hero-card">
+        <div class="hcard-head">
+          <div class="hcard-head-left">
+            <div class="hcard-logo">VE</div>
+            <div>
+              <div class="hcard-title-text">Decision Dashboard</div>
+              <div class="hcard-sub-text">Value &amp; Scalability Analysis</div>
+            </div>
+          </div>
+          <div class="hcard-score-badge">Score: 94/100</div>
+        </div>
+        <div class="hcard-metrics">
+          <div class="hcard-metric">
+            <div class="hcard-metric-label">Team Efficiency</div>
+            <div class="hcard-metric-val teal">+40%</div>
+            <div class="hcard-bar"><div class="hcard-bar-fill" style="width:78%"></div></div>
+          </div>
+          <div class="hcard-metric">
+            <div class="hcard-metric-label">GTM Readiness</div>
+            <div class="hcard-metric-val white">High</div>
+            <div class="hcard-bar"><div class="hcard-bar-fill" style="width:91%"></div></div>
+          </div>
+        </div>
+        <div class="hcard-chart">
+          <div class="hcard-chart-label">Market Positioning</div>
+          <svg class="hcard-chart-svg" viewBox="0 0 340 60" preserveAspectRatio="none" style="width:100%;height:52px;">
+            <defs>
+              <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#26C5B8" stop-opacity="0.18"/>
+                <stop offset="100%" stop-color="#26C5B8" stop-opacity="0"/>
+              </linearGradient>
+            </defs>
+            <path d="M0,52 L0,42 C40,42 60,38 90,30 C120,22 140,26 170,18 C200,10 230,14 260,8 C290,2 310,6 340,4 L340,52 Z" fill="url(#chartGrad)"/>
+            <path d="M0,42 C40,42 60,38 90,30 C120,22 140,26 170,18 C200,10 230,14 260,8 C290,2 310,6 340,4" stroke="#26C5B8" stroke-width="2" fill="none" stroke-linecap="round"/>
+          </svg>
+        </div>
       </div>
     </div>
   </div>
@@ -666,13 +1015,35 @@
 
 <!-- ══════════════════ PROBLEM ══════════════════ -->
 <div class="problem-wrap">
-  <p class="section-label" style="justify-content:center; margin-bottom:2rem;" data-i18n="problem.label">The Root Cause</p>
-  <p class="problem-quote" data-i18n="problem.quote">
-    When positioning is <em>clear</em>, you can build a <em>focused</em>
-    and <em>sustainable</em> revenue growth plan.<br>
-    Most startups skip this step.
-  </p>
-  <p class="problem-sub" data-i18n="problem.sub">We make sure yours doesn't.</p>
+  <div class="problem-inner">
+    <div class="problem-text">
+      <p class="section-label" data-i18n="problem.label">The Root Cause</p>
+      <p class="problem-quote" data-i18n="problem.quote">
+        When positioning is <em>clear</em>, you can build a <em>focused</em>
+        and <em>sustainable</em> revenue growth plan.<br>
+        Most startups skip this step.
+      </p>
+      <p class="problem-sub" data-i18n="problem.sub">We make sure yours doesn't.</p>
+    </div>
+    <div class="problem-metrics">
+      <div class="pm-card reveal">
+        <div class="pm-val">-40%</div>
+        <div class="pm-desc">Reduced team costs through targeted resource allocation</div>
+      </div>
+      <div class="pm-card reveal delay-1">
+        <div class="pm-val">+GTM</div>
+        <div class="pm-desc">Clear focus on highest-priority go-to-market levers</div>
+      </div>
+      <div class="pm-card reveal delay-2">
+        <div class="pm-val">12mo</div>
+        <div class="pm-desc">Complete operative go-to-market plan as final output</div>
+      </div>
+      <div class="pm-card reveal delay-3">
+        <div class="pm-val">+Win</div>
+        <div class="pm-desc">Significantly higher probability of startup success</div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <!-- ══════════════════ SERVICES ══════════════════ -->
@@ -853,10 +1224,12 @@
       <!-- Enrico Castellani -->
       <div class="team-card reveal">
         <div class="team-photo-wrap">
-          <img src="brand_assets/team/enrico-castellani.png" alt="Enrico Castellani" />
+          <img src="brand_assets/team/enrico-castellani.png" alt="Enrico Castellani" loading="lazy" width="400" height="400" />
         </div>
         <div class="team-info">
           <div class="team-name">Enrico Castellani</div>
+          <div class="team-role">Co-Founder &amp; CEO</div>
+          <p class="team-bio">Entrepreneur and Venture Builder with 15+ years experience. Founder of C*Sparks. Expert in strategic validation and startup development.</p>
           <a href="https://www.linkedin.com/in/enrico-castellani-6a6b8929/" target="_blank" rel="noopener noreferrer" class="team-linkedin" aria-label="Enrico Castellani on LinkedIn">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             LinkedIn
@@ -867,10 +1240,12 @@
       <!-- Sara Tiddia -->
       <div class="team-card reveal delay-1">
         <div class="team-photo-wrap">
-          <img src="brand_assets/team/sara-tiddia.png" alt="Sara Tiddia" />
+          <img src="brand_assets/team/sara-tiddia.png" alt="Sara Tiddia" loading="lazy" width="400" height="400" />
         </div>
         <div class="team-info">
           <div class="team-name">Sara Tiddia</div>
+          <div class="team-role">Growth &amp; Digital Marketing</div>
+          <p class="team-bio">B2B Digital Marketing and Growth consultant. Supports entrepreneurs in outbound development and go-to-market growth strategies.</p>
           <a href="https://www.linkedin.com/in/sara-tiddia-36447794/" target="_blank" rel="noopener noreferrer" class="team-linkedin" aria-label="Sara Tiddia on LinkedIn">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             LinkedIn
@@ -881,10 +1256,12 @@
       <!-- Giuseppe Giordano -->
       <div class="team-card reveal delay-2">
         <div class="team-photo-wrap">
-          <img src="brand_assets/team/giuseppe-giordano.png" alt="Giuseppe Giordano" />
+          <img src="brand_assets/team/giuseppe-giordano.png" alt="Giuseppe Giordano" loading="lazy" width="400" height="400" />
         </div>
         <div class="team-info">
           <div class="team-name">Giuseppe Giordano</div>
+          <div class="team-role">Technology &amp; Operations</div>
+          <p class="team-bio">Tech professional with experience in Energy Tech and IoT. Background in operations management and product development for high-growth startups.</p>
           <a href="https://www.linkedin.com/in/gcg84/" target="_blank" rel="noopener noreferrer" class="team-linkedin" aria-label="Giuseppe Giordano on LinkedIn">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             LinkedIn
@@ -895,10 +1272,12 @@
       <!-- Marco Martellacci -->
       <div class="team-card reveal delay-3">
         <div class="team-photo-wrap">
-          <img src="brand_assets/team/marco-martellacci.png" alt="Marco Martellacci" />
+          <img src="brand_assets/team/marco-martellacci.png" alt="Marco Martellacci" loading="lazy" width="400" height="400" />
         </div>
         <div class="team-info">
           <div class="team-name">Marco Martellacci</div>
+          <div class="team-role">Co-Founder &amp; CTO</div>
+          <p class="team-bio">Co-Founder and CTO with deep expertise in AI, IoT, and SaaS platforms. Background in scalable architectures and data-driven decision making.</p>
           <a href="https://www.linkedin.com/in/marco-martellacci/" target="_blank" rel="noopener noreferrer" class="team-linkedin" aria-label="Marco Martellacci on LinkedIn">
             <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
             LinkedIn
@@ -938,33 +1317,40 @@
         </ul>
       </div>
 
-      <div class="accel-items reveal">
-        <div class="accel-item">
-          <div class="accel-dot"></div>
-          <div>
-            <div class="accel-title" data-i18n="accel.item1.title">Engyne Build</div>
-            <div class="accel-desc" data-i18n="accel.item1.desc">Early-stage startups: identify and validate unique positioning before scaling. 4-month structured engagement.</div>
+      <div class="accel-flow reveal">
+        <div class="accel-flow-step">
+          <div class="accel-step-num">01</div>
+          <div class="accel-step-content">
+            <div class="accel-step-title">Startup Research &amp; Scouting</div>
+            <div class="accel-step-desc">Identify and map potential portfolio startups aligned with fund thesis and sector focus.</div>
           </div>
         </div>
-        <div class="accel-item">
-          <div class="accel-dot"></div>
-          <div>
-            <div class="accel-title" data-i18n="accel.item2.title">Engyne Growth</div>
-            <div class="accel-desc" data-i18n="accel.item2.desc">Late-stage startups: identify revenue focus areas and build an operational plan to grow or re-accelerate.</div>
+        <div class="accel-flow-step">
+          <div class="accel-step-num">02</div>
+          <div class="accel-step-content">
+            <div class="accel-step-title">Pre-Evaluation &amp; Selection</div>
+            <div class="accel-step-desc">Structured assessment of positioning, team, and technology readiness before admission.</div>
           </div>
         </div>
-        <div class="accel-item">
-          <div class="accel-dot"></div>
-          <div>
-            <div class="accel-title" data-i18n="accel.item3.title">Engyne Monitoring</div>
-            <div class="accel-desc" data-i18n="accel.item3.desc">Portfolio-wide reporting and dashboard. Real-time visibility into each startup's progress and financial health.</div>
+        <div class="accel-flow-step">
+          <div class="accel-step-num">3A</div>
+          <div class="accel-step-content">
+            <div class="accel-step-title" data-i18n="accel.item1.title">Engyne Build — Positioning</div>
+            <div class="accel-step-desc" data-i18n="accel.item1.desc">Early-stage startups: identify and validate unique positioning before scaling. 4-month structured engagement.</div>
           </div>
         </div>
-        <div class="accel-item featured">
-          <div class="accel-dot"></div>
-          <div>
-            <div class="accel-title featured" data-i18n="accel.item4.title">Engyne Total</div>
-            <div class="accel-desc" data-i18n="accel.item4.desc">All three services integrated — the complete solution for Accelerators and Venture Builders managing portfolio calls.</div>
+        <div class="accel-flow-step">
+          <div class="accel-step-num">3B</div>
+          <div class="accel-step-content">
+            <div class="accel-step-title" data-i18n="accel.item2.title">Engyne Growth — Revenue</div>
+            <div class="accel-step-desc" data-i18n="accel.item2.desc">Late-stage startups: identify revenue focus areas and build an operational plan to grow or re-accelerate.</div>
+          </div>
+        </div>
+        <div class="accel-flow-step featured">
+          <div class="accel-step-num">04</div>
+          <div class="accel-step-content">
+            <div class="accel-step-title" data-i18n="accel.item3.title">Monitoring &amp; Investment Review</div>
+            <div class="accel-step-desc" data-i18n="accel.item3.desc">Portfolio-wide reporting and dashboard. Real-time visibility into each startup's progress and financial health.</div>
           </div>
         </div>
       </div>
